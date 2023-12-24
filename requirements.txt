@@ -1,0 +1,8 @@
+transformers==4.36.0
+tensorflow==2.15.0
+fastapi==0.105.0
+uvicorn[standard]
+pylint
+pytest
+black
+pydantic
