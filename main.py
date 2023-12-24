@@ -5,9 +5,14 @@ from bs4 import BeautifulSoup
 from fastapi.responses import JSONResponse
 from fastapi.encoders import jsonable_encoder
 import uvicorn
+from pydantic import BaseModel
 
 app = FastAPI()
 # Mute tensorflow complaints
+
+class Wiki(BaseModel):
+    text: str
+    
 import os
 
 os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
@@ -37,8 +42,8 @@ def process(text):
 
 
 @app.post("/url")
-async def summarizer_url(url):
-
+async def summarizer_url(wiki: Wiki):
+    url=wiki.text
     text = extract_from_url(url)
     result = process(text)
     payload = {"summarise": result}
